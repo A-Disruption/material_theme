@@ -1,0 +1,16 @@
+[package]
+name = "material_theme"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+iced = { git = "https://github.com/iced-rs/iced", branch = "master" }
+material-colors = { version = "0.4", default-features = false, features = ["std"] }
+widgets = { path = "../widgets", features = ["color_picker_two"] }
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "material_theme_demo"
+path = "src/main.rs"
