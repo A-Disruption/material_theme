@@ -52,7 +52,9 @@
       "Bash(curl -s https://raw.githubusercontent.com/iced-rs/iced/master/core/src/user_interface.rs)",
       "Bash(curl -sL \"https://api.github.com/repos/iced-rs/iced/git/trees/master?recursive=1\")",
       "Bash(curl -s https://raw.githubusercontent.com/iced-rs/iced/master/runtime/src/user_interface.rs)",
-      "Bash(curl -s https://raw.githubusercontent.com/iced-rs/iced/master/core/src/window.rs)"
+      "Bash(curl -s https://raw.githubusercontent.com/iced-rs/iced/master/core/src/window.rs)",
+      "Bash(find ~/.cargo/registry/src -maxdepth 1 -type d -name \"material-colors*\" 2>/dev/null; find ~/.cargo -path \"*material*scheme*.rs\" 2>/dev/null | head)",
+      "Read(//c/Users/ktwinam/.cargo/**)"
     ],
     "additionalDirectories": [
       "C:\\Rust Projects\\widgets"

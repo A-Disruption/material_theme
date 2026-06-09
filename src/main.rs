@@ -84,6 +84,8 @@ enum VariantChoice {
     TonalSpot,
     Vibrant,
     Expressive,
+    Fidelity,
+    Content,
     Neutral,
     Monochrome,
 }
@@ -94,6 +96,8 @@ impl VariantChoice {
             VariantChoice::TonalSpot => Variant::TonalSpot,
             VariantChoice::Vibrant => Variant::Vibrant,
             VariantChoice::Expressive => Variant::Expressive,
+            VariantChoice::Fidelity => Variant::Fidelity,
+            VariantChoice::Content => Variant::Content,
             VariantChoice::Neutral => Variant::Neutral,
             VariantChoice::Monochrome => Variant::Monochrome,
         }
@@ -104,6 +108,8 @@ impl VariantChoice {
             VariantChoice::TonalSpot => "Tonal Spot",
             VariantChoice::Vibrant => "Vibrant",
             VariantChoice::Expressive => "Expressive",
+            VariantChoice::Fidelity => "Fidelity",
+            VariantChoice::Content => "Content",
             VariantChoice::Neutral => "Neutral",
             VariantChoice::Monochrome => "Monochrome",
         }
@@ -192,6 +198,8 @@ impl Demo {
             variant_chip(self.variant, VariantChoice::TonalSpot),
             variant_chip(self.variant, VariantChoice::Vibrant),
             variant_chip(self.variant, VariantChoice::Expressive),
+            variant_chip(self.variant, VariantChoice::Fidelity),
+            variant_chip(self.variant, VariantChoice::Content),
             variant_chip(self.variant, VariantChoice::Neutral),
             variant_chip(self.variant, VariantChoice::Monochrome),
         ]
@@ -264,6 +272,13 @@ impl Demo {
                 swatch("inverse_primary", s.inverse_primary, s.primary),
             ]
             .spacing(8),
+            row![
+                swatch("primary_fixed", s.primary_fixed, s.on_primary_fixed),
+                swatch("primary_fixed_dim", s.primary_fixed_dim, s.on_primary_fixed),
+                swatch("on_primary_fixed", s.on_primary_fixed, s.primary_fixed),
+                swatch("on_primary_fixed_variant", s.on_primary_fixed_variant, s.primary_fixed),
+            ]
+            .spacing(8),
             text("Secondary").size(13),
             row![
                 swatch("secondary", s.secondary, s.on_secondary),
@@ -272,12 +287,26 @@ impl Demo {
                 swatch("on_secondary_container", s.on_secondary_container, s.secondary_container),
             ]
             .spacing(8),
+            row![
+                swatch("secondary_fixed", s.secondary_fixed, s.on_secondary_fixed),
+                swatch("secondary_fixed_dim", s.secondary_fixed_dim, s.on_secondary_fixed),
+                swatch("on_secondary_fixed", s.on_secondary_fixed, s.secondary_fixed),
+                swatch("on_secondary_fixed_variant", s.on_secondary_fixed_variant, s.secondary_fixed),
+            ]
+            .spacing(8),
             text("Tertiary").size(13),
             row![
                 swatch("tertiary", s.tertiary, s.on_tertiary),
                 swatch("on_tertiary", s.on_tertiary, s.tertiary),
                 swatch("tertiary_container", s.tertiary_container, s.on_tertiary_container),
                 swatch("on_tertiary_container", s.on_tertiary_container, s.tertiary_container),
+            ]
+            .spacing(8),
+            row![
+                swatch("tertiary_fixed", s.tertiary_fixed, s.on_tertiary_fixed),
+                swatch("tertiary_fixed_dim", s.tertiary_fixed_dim, s.on_tertiary_fixed),
+                swatch("on_tertiary_fixed", s.on_tertiary_fixed, s.tertiary_fixed),
+                swatch("on_tertiary_fixed_variant", s.on_tertiary_fixed_variant, s.tertiary_fixed),
             ]
             .spacing(8),
             text("Error").size(13),
@@ -301,7 +330,6 @@ impl Demo {
             text("Surface tones").size(13),
             row![
                 swatch("surface_dim", s.surface_dim, s.on_surface),
-                swatch("surface", s.surface, s.on_surface),
                 swatch("surface_bright", s.surface_bright, s.on_surface),
                 swatch("surface_tint", s.surface_tint, s.on_primary),
             ]
