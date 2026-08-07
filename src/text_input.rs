@@ -3,12 +3,14 @@ use iced::widget::text_input::{Status, Style};
 use iced::{Background, Border, Color, Theme};
 
 use crate::scheme::{MaterialScheme, with_alpha};
+use crate::tokens::{disabled, shape};
 use crate::widget_common::scheme_for;
 
-const FILLED_RADIUS_TOP: f32 = 4.0;
-const OUTLINED_RADIUS: f32 = 4.0;
-const DISABLED_ALPHA: f32 = 0.38;
-const DISABLED_CONTAINER_ALPHA: f32 = 0.04;
+const FILLED_RADIUS_TOP: f32 = shape::EXTRA_SMALL;
+const OUTLINED_RADIUS: f32 = shape::EXTRA_SMALL;
+const DISABLED_ALPHA: f32 = disabled::CONTENT;
+const DISABLED_CONTAINER_ALPHA: f32 = disabled::SURFACE;
+const DISABLED_OUTLINE_ALPHA: f32 = disabled::CONTAINER;
 
 fn filled_radius() -> Radius {
     Radius {
@@ -38,7 +40,6 @@ pub fn filled(theme: &Theme, status: Status) -> Style {
             width: focus_width(&status),
             radius: filled_radius(),
         },
-        icon: text_color,
         placeholder,
         value: text_color,
         selection: with_alpha(s.primary, 0.3),
@@ -51,7 +52,9 @@ pub fn outlined(theme: &Theme, status: Status) -> Style {
         Status::Active => (s.outline, 1.0),
         Status::Hovered => (s.on_surface, 1.0),
         Status::Focused { .. } => (s.primary, 2.0),
-        Status::Disabled => (with_alpha(s.on_surface, DISABLED_ALPHA), 1.0),
+        // The outline is a container, not content: M3 dims it to 12%, not the
+        // 38% the text inside it uses.
+        Status::Disabled => (with_alpha(s.on_surface, DISABLED_OUTLINE_ALPHA), 1.0),
     };
     let (text_color, placeholder) = disabled_text_colors(&s, &status);
     Style {
@@ -61,7 +64,6 @@ pub fn outlined(theme: &Theme, status: Status) -> Style {
             width: border_width,
             radius: Radius::from(OUTLINED_RADIUS),
         },
-        icon: text_color,
         placeholder,
         value: text_color,
         selection: with_alpha(s.primary, 0.3),

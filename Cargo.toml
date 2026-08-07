@@ -4,13 +4,29 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-iced = { git = "https://github.com/iced-rs/iced", branch = "master" }
+# Pinned to the same rev as ../widgets so the two share one iced build. A
+# floating `branch = "master"` here is a *different* cargo source even at the
+# same commit, which duplicates iced_core and breaks Color/Element type unity.
+iced = { git = "https://github.com/iced-rs/iced", rev = "4cad51ba61e3d76a7e696ad5923d675a20994e34" }
 material-colors = { version = "0.4", default-features = false, features = ["std"] }
-widgets = { path = "../widgets", features = ["color_picker_two"] }
+
+[features]
+default = []
+# Mirror iced's optional widgets. Enabling one here turns on the matching iced
+# feature and compiles this crate's style module for it.
+svg = ["iced/svg"]
+qr_code = ["iced/qr_code"]
+markdown = ["iced/markdown"]
+all-widgets = ["svg", "qr_code", "markdown"]
+
+[dev-dependencies]
+# Demo-only. Kept out of [dependencies] so consumers of this crate don't inherit
+# the `../widgets` path dep, which won't exist outside this workspace.
+widgets = { path = "../widgets", features = ["color_picker_two", "m3_theme"] }
 
 [lib]
 path = "src/lib.rs"
 
-[[bin]]
-name = "material_theme_demo"
-path = "src/main.rs"
+[[example]]
+name = "demo"
+path = "examples/demo.rs"

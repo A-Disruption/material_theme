@@ -3,9 +3,10 @@ use iced::widget::container::Style;
 use iced::{Background, Border, Color, Shadow, Theme, Vector};
 
 use crate::scheme::with_alpha;
+use crate::tokens::shape;
 use crate::widget_common::scheme_for;
 
-const CARD_RADIUS: f32 = 12.0;
+const CARD_RADIUS: f32 = shape::MEDIUM;
 
 pub fn filled_card(theme: &Theme) -> Style {
     let s = scheme_for(theme);

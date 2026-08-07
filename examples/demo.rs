@@ -5,12 +5,15 @@ use iced::widget::{
 use iced::{Center, Color, Element, Length, Theme};
 
 use material_theme::{
-    MaterialScheme, MaterialTheme, MaterialThemeExt, Mode, Variant, button as m3_button,
-    checkbox as m3_checkbox, container as m3_container, menu as m3_menu, pick_list as m3_pick_list,
+    MaterialTheme, Mode, Variant, button as m3_button, checkbox as m3_checkbox,
+    container as m3_container, menu as m3_menu, pick_list as m3_pick_list,
     progress_bar as m3_progress_bar, radio as m3_radio, rule as m3_rule, scrollable as m3_scrollable,
     slider as m3_slider, text_input as m3_text_input, toggler as m3_toggler,
 };
-use widgets::color_picker_two::{color_picker_two, default_style as picker_default_style};
+use widgets::color_picker_two::color_picker_two;
+// A third-party widget styled through the `m3_theme` feature — it tracks the
+// seed color and light/dark mode along with everything else on screen.
+use widgets::m3::color_picker_two::material as m3_picker;
 
 const BASELINE_PURPLE_ARGB: u32 = 0xFF6750A4;
 
@@ -228,7 +231,7 @@ impl Demo {
         let picker: Element<'_, Message> = color_picker_two(self.picker_open, self.seed_color)
             .on_change(Message::SeedColorPicked)
             .on_close(|| Message::ClosePicker)
-            .style(picker_default_style)
+            .style(m3_picker)
             .into();
 
         let body = column![
@@ -521,12 +524,7 @@ fn to_u8(c: f32) -> u8 {
     (c.clamp(0.0, 1.0) * 255.0).round() as u8
 }
 
-#[allow(dead_code)]
-fn _force_use_scheme_ext(t: &Theme) -> Option<MaterialScheme> {
-    t.material_scheme().map(|s| *s)
-}
-
-pub fn main() -> iced::Result {
+fn main() -> iced::Result {
     iced::application(Demo::default, Demo::update, Demo::view)
         .title("Material Theme Demo")
         .theme(Demo::theme)

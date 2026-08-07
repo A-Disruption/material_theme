@@ -2,13 +2,14 @@ use iced::widget::button::{Status, Style};
 use iced::{Background, Border, Color, Shadow, Theme, Vector};
 
 use crate::scheme::{MaterialScheme, mix_alpha, with_alpha};
+use crate::tokens::{disabled, shape, state};
 use crate::widget_common::scheme_for as scheme;
 
-const M3_BUTTON_RADIUS: f32 = 20.0;
-const HOVER_STATE_LAYER: f32 = 0.08;
-const PRESSED_STATE_LAYER: f32 = 0.12;
-const DISABLED_CONTAINER_ALPHA: f32 = 0.12;
-const DISABLED_CONTENT_ALPHA: f32 = 0.38;
+const M3_BUTTON_RADIUS: f32 = shape::FULL;
+const HOVER_STATE_LAYER: f32 = state::HOVER;
+const PRESSED_STATE_LAYER: f32 = state::PRESSED;
+const DISABLED_CONTAINER_ALPHA: f32 = disabled::CONTAINER;
+const DISABLED_CONTENT_ALPHA: f32 = disabled::CONTENT;
 
 fn rounded(bg: Option<Background>, text: Color) -> Style {
     Style {
